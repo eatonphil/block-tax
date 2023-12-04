@@ -1,5 +1,10 @@
 # Block Tax
 
+NOTE: This must be run on Linux. This will drop your page cache. Your
+system will act as if there was a fork bomb but it's not a fork
+bomb. It will get back to normal after you run your normal programs
+once.
+
 ```
 $ rustc blocktax.rs
 $ ./blocktax | tee out.csv
