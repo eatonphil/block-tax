@@ -22,4 +22,20 @@ $ duckdb -c "select column0, avg(column1) from 'out.csv' group by column0 order 
 │ partial_page_4096_20_bytes   │ 4.3916698800000013e-05 │
 │ 2_full_page_512              │  4.912078600000008e-05 │
 └──────────────────────────────┴────────────────────────┘
+$ # OR WITH 90TH PERCENTILE
+$ duckdb -c "select column0, quantile(column1, .9) from 'out.csv' group by column0 order by quantile(column1, .9) a
+sc"
+┌──────────────────────────────┬───────────────────────┐
+│           column0            │ quantile(column1, .9) │
+│           varchar            │        double         │
+├──────────────────────────────┼───────────────────────┤
+│ full_page_4096               │            2.1768e-05 │
+│ full_page_512                │             2.343e-05 │
+│ partial_page_4096_6144_bytes │            2.6171e-05 │
+│ partial_page_4096_20_bytes   │             3.998e-05 │
+│ partial_page_512_20_bytes    │            4.3407e-05 │
+│ partial_page_512_768_bytes   │            5.2008e-05 │
+│ 2_full_page_512              │            7.8828e-05 │
+│ 2_full_page_4096             │            7.9737e-05 │
+└──────────────────────────────┴───────────────────────┘
 ```
